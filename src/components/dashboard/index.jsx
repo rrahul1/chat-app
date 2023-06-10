@@ -1,13 +1,23 @@
 import React from "react";
-import { Button, Divider, Drawer } from "rsuite";
+import { Alert, Button, Divider, Drawer } from "rsuite";
 import { useProfile } from "../../context/profile.context";
 import EditableInput from "../EditableInput";
+import { database } from "../../misc/firebase";
 
 function Dashboard({ handleSignOut }) {
   const { profile } = useProfile();
 
   const handleSave = async (newData) => {
-    console.log(newData);
+    const userNicknameRef = database
+      .ref(`/profiles/${profile.uid}`)
+      .child("name");
+
+    try {
+      await userNicknameRef.set(newData);
+      Alert.success("Nickname has been updated");
+    } catch (err) {
+      Alert.error(err.message, 4000);
+    }
   };
 
   return (
