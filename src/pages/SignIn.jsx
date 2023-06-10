@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useProfile } from "../context/profile.context";
 
 function SignIn() {
-  const { profile, loading } = useProfile();
+  const { loading, profile } = useProfile();
 
   const navigate = useNavigate();
 
@@ -77,7 +77,7 @@ function SignIn() {
                   <Icon icon="facebook" /> Continue with Facebook
                 </Button>
 
-                <Button block color="green" onClick={handleGoogleSignIn}>
+                <Button block color="red" onClick={handleGoogleSignIn}>
                   <Icon icon="google" /> Continue with Google
                 </Button>
               </div>
