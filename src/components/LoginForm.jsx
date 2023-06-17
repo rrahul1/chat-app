@@ -14,7 +14,6 @@ function LoginForm() {
 
       Alert.success("Signed in", 4000);
     } catch {
-      console.log(email, password);
       const { additionalUserInfo, user } =
         await auth.createUserWithEmailAndPassword(email, password);
       if (additionalUserInfo.isNewUser) {
@@ -54,7 +53,7 @@ function LoginForm() {
       >
         Username
         <input
-          style={{ width: "100%", padding: "0.5em" }}
+          style={{ width: "100%", padding: "0.5em", outline: "none" }}
           placeholder="Enter username"
           type="text"
           value={userName}
@@ -64,6 +63,7 @@ function LoginForm() {
           required
         />
       </label>
+
       <label
         style={{
           width: "100%",
@@ -74,7 +74,7 @@ function LoginForm() {
       >
         Email
         <input
-          style={{ width: "100%" }}
+          style={{ width: "100%", padding: "0.5em", outline: "none" }}
           placeholder="Enter Email"
           type="email"
           value={email}
@@ -84,6 +84,7 @@ function LoginForm() {
           }}
         />
       </label>
+
       <label
         style={{
           width: "100%",
@@ -94,7 +95,7 @@ function LoginForm() {
       >
         Password
         <input
-          style={{ width: "100%" }}
+          style={{ width: "100%", padding: "0.5em", outline: "none" }}
           placeholder="Enter Password"
           type="Password"
           value={password}
@@ -107,7 +108,7 @@ function LoginForm() {
 
       <ButtonToolbar className="mt-3">
         <Button block type="submit" appearance="primary">
-          Submit
+          Sign In
         </Button>
       </ButtonToolbar>
     </form>

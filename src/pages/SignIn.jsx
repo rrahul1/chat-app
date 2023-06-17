@@ -17,7 +17,6 @@ function SignIn() {
     }
 
     if (profile && profile?.isEmailVerified === false) {
-      console.log(profile, "kflkdsjfk");
       return navigate("/verify");
     }
 

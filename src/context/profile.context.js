@@ -46,8 +46,6 @@ export const ProfileProvider = ({ children }) => {
     };
   }, []);
 
-  console.log(profile);
-
   return (
     <ProfileContext.Provider value={{ profile }}>
       {children}
