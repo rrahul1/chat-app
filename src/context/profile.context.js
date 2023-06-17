@@ -6,24 +6,27 @@ export const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let userRef;
     const authUnsub = auth.onAuthStateChanged((authObj) => {
+      if (!authObj?.emailVerified) {
+        authObj?.sendEmailVerification();
+      }
       if (authObj) {
         userRef = database.ref(`/profiles/${authObj.uid}`);
         userRef.on("value", (snap) => {
-          const { name, createdAt } = snap.val();
+          const { name, createdAt } = snap?.val();
 
           const data = {
             name,
             createdAt,
-            uid: authObj.uid,
-            email: authObj.email,
+            uid: authObj?.uid,
+            email: authObj?.email,
+            password: authObj?.password,
+            isEmailVerified: authObj?.emailVerified,
           };
           setProfile(data);
-          setLoading(false);
         });
       } else {
         if (userRef) {
@@ -31,7 +34,6 @@ export const ProfileProvider = ({ children }) => {
         }
 
         setProfile(null);
-        setLoading(false);
       }
     });
 
@@ -44,8 +46,10 @@ export const ProfileProvider = ({ children }) => {
     };
   }, []);
 
+  console.log(profile);
+
   return (
-    <ProfileContext.Provider value={({ loading }, { profile })}>
+    <ProfileContext.Provider value={{ profile }}>
       {children}
     </ProfileContext.Provider>
   );

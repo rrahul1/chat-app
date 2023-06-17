@@ -7,6 +7,7 @@ import ProviderBlock from "./ProviderBlock";
 
 function Dashboard({ handleSignOut }) {
   const { profile } = useProfile();
+  console.log(profile);
 
   const handleSave = async (newData) => {
     const userNicknameRef = database

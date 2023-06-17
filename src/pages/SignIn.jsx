@@ -1,42 +1,30 @@
 import React, { useEffect } from "react";
 import firebase from "firebase/app";
-import {
-  Alert,
-  Button,
-  Col,
-  Container,
-  Grid,
-  Icon,
-  Loader,
-  Panel,
-  Row,
-} from "rsuite";
+import { Alert, Button, Col, Container, Grid, Icon, Panel, Row } from "rsuite";
 import { auth, database } from "../misc/firebase";
 import { useNavigate } from "react-router-dom";
 import { useProfile } from "../context/profile.context";
+import LoginForm from "../components/LoginForm";
 
 function SignIn() {
-  const { loading, profile } = useProfile();
+  const { profile } = useProfile();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loading && !profile) {
-      return (
-        <Container>
-          <Loader center vertical size="md" content="Loading" speed="slow" />
-        </Container>
-      );
-    }
-
-    if (!profile && !loading) {
+    if (!profile && !profile?.isEmailVerified) {
       return navigate("/signin");
     }
 
-    if (profile && !loading) {
+    if (profile && profile?.isEmailVerified === false) {
+      console.log(profile, "kflkdsjfk");
+      return navigate("/verify");
+    }
+
+    if (profile && profile?.isEmailVerified) {
       return navigate("/");
     }
-  }, [loading, navigate, profile]);
+  }, [navigate, profile]);
 
   const signInWithProvider = async (provider) => {
     try {
@@ -45,10 +33,11 @@ function SignIn() {
       if (additionalUserInfo.isNewUser) {
         await database.ref(`/profiles/${user.uid}`).set({
           name: user.displayName,
+          email: user.email,
           createdAt: firebase.database.ServerValue.TIMESTAMP,
         });
       }
-      Alert.success("Signed in", 400);
+      Alert.success("Signed in", 4000);
     } catch (err) {
       Alert.error(err.message, 4000);
     }
@@ -72,6 +61,11 @@ function SignIn() {
                 <h2>Welcome To Chat</h2>
                 <p>Progressive chat platform for neophytes</p>
               </div>
+              <div>
+                <LoginForm />
+              </div>
+
+              <h2 style={{ textAlign: "center" }}>OR</h2>
               <div className="mt-3">
                 <Button block color="blue" onClick={handleFacebookSignIn}>
                   <Icon icon="facebook" /> Continue with Facebook
