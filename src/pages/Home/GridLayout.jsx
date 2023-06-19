@@ -2,15 +2,15 @@ import React from "react";
 import { Col, Grid, Row } from "rsuite";
 import Sidebar from "../../components/Sidebar";
 import Chat from "./Chat";
-import { useMediQuery } from "../../misc/custom-hooks";
-import { useMatch } from "react-router-dom";
+import { useMediaQuery } from "../../misc/custom-hooks";
+import { useLocation } from "react-router-dom";
 
 function GridLayout() {
-  const isDesktop = useMediQuery("(min-width: 992px");
+  const isDesktop = useMediaQuery("(min-width: 992px)");
 
-  const { isExact } = useMatch();
+  const location = useLocation();
 
-  const canRenderSidebar = isDesktop || isExact;
+  const canRenderSidebar = isDesktop || location;
 
   return (
     <Grid fluid className="h-100">

@@ -1,12 +1,12 @@
 import React, { useCallback } from "react";
 import { Alert, Button, Drawer, Icon } from "rsuite";
-import { useMediQuery, useModalState } from "../../misc/custom-hooks";
+import { useMediaQuery, useModalState } from "../../misc/custom-hooks";
 import Dashboard from ".";
 import { auth } from "../../misc/firebase";
 
 function DashboardToggle() {
   const { isOpen, open, close } = useModalState();
-  const isMobile = useMediQuery("(max-width: 992px)");
+  const isMobile = useMediaQuery("(max-width: 992px)");
 
   const handleSignOut = useCallback(() => {
     auth.signOut();

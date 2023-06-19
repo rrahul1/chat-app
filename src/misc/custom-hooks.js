@@ -9,7 +9,7 @@ export function useModalState(defaultValue = false) {
   return { isOpen, open, close };
 }
 
-export const useMediQuery = (query) => {
+export const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(
     () => window.matchMedia(query).matches
   );
