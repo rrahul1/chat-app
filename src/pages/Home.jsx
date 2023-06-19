@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useProfile } from "../context/profile.context";
 import { useNavigate } from "react-router-dom";
 
-import GridLayout from "../components/GridLayout";
+import GridLayout from "./Home";
 
 function Home() {
   const navigate = useNavigate();

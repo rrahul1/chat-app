@@ -1,7 +1,8 @@
 import React from "react";
 import { Col, Grid, Row } from "rsuite";
-import Sidebar from "./Sidebar";
-import { RoomsProvider } from "../context/rooms.context";
+import Sidebar from "../../components/Sidebar";
+import { RoomsProvider } from "../../context/rooms.context";
+import Chat from "./Chat";
 
 function GridLayout() {
   return (
@@ -11,6 +12,9 @@ function GridLayout() {
           <Col xs={24} md={8} className="h-100">
             <Sidebar />
           </Col>
+          <col>
+            <Chat />
+          </col>
         </Row>
       </Grid>
     </RoomsProvider>

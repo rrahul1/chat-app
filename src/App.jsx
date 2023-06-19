@@ -4,6 +4,7 @@ import "./styles/main.scss";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import EmailVerify from "./pages/EmailVerify";
+import Chat from "./pages/Home/Chat";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
       <Route path="/" element={<Home />} />
 
       <Route path="/verify" element={<EmailVerify />} />
+
+      <Route exact path="/chat/:chatId" element={<Chat />} />
     </Routes>
   );
 }
