@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useProfile } from "../context/profile.context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "rsuite";
 
 function EmailVerify() {
   const { profile } = useProfile();
@@ -14,7 +15,13 @@ function EmailVerify() {
 
   return (
     <div className="mt-page">
-      <h1>Please verify your email!!</h1>
+      {profile && profile?.isEmailVerified ? (
+        <Button appearance="link" componentClass={Link} to="/">
+          Click to continue
+        </Button>
+      ) : (
+        <h1>Please verify your email to continue</h1>
+      )}
     </div>
   );
 }

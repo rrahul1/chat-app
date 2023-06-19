@@ -5,24 +5,17 @@ import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import EmailVerify from "./pages/EmailVerify";
 import Chat from "./pages/Home/Chat";
-import { Col } from "rsuite";
 
 function App() {
   return (
     <Routes>
       <Route path="/signin" element={<SignIn />} />
 
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home />}>
+        <Route exact path="/chat/:chatId" element={<Chat />} />
+      </Route>
 
       <Route path="/verify" element={<EmailVerify />} />
-      <Route
-        path="/chat/:chatId"
-        element={
-          <Col xs={24} md={8} className="h-100">
-            <Chat />
-          </Col>
-        }
-      />
     </Routes>
   );
 }

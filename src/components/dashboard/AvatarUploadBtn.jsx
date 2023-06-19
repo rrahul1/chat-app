@@ -61,7 +61,7 @@ function AvatarUploadBtn() {
       const blob = await getBlob(canvas);
 
       const avatarFileRef = storage
-        .ref(`/profiles/${profile.uid}`)
+        .ref(`/profiles/${profile?.uid}`)
         .child("avatar");
 
       const uploadResult = await avatarFileRef.put(blob, {
@@ -71,7 +71,7 @@ function AvatarUploadBtn() {
       const downloadUrl = await uploadResult.ref.getDownloadURL();
 
       const userAvatarRef = database
-        .ref(`/profiles/${profile.uid}`)
+        .ref(`/profiles/${profile?.uid}`)
         .child("avatar");
 
       userAvatarRef.set(downloadUrl);
@@ -88,8 +88,8 @@ function AvatarUploadBtn() {
   return (
     <div className="mt-3 text-center">
       <ProfileAvatar
-        src={profile.avatar}
-        name={profile.name}
+        src={profile?.avatar}
+        name={profile?.name}
         className="width-200 height-200 img-fullsize font-huge"
       />
 
