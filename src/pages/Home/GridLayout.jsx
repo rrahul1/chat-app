@@ -3,14 +3,14 @@ import { Col, Grid, Row } from "rsuite";
 import Sidebar from "../../components/Sidebar";
 import Chat from "./Chat";
 import { useMediaQuery } from "../../misc/custom-hooks";
-import { useLocation } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 
 function GridLayout() {
   const isDesktop = useMediaQuery("(min-width: 992px)");
 
-  const location = useLocation();
+  const route = useMatch("/");
 
-  const canRenderSidebar = isDesktop || location;
+  const canRenderSidebar = isDesktop || route;
 
   return (
     <Grid fluid className="h-100">

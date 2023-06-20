@@ -1,31 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChatTop from "../../components/chat-window/top";
 import Messages from "../../components/chat-window/messages";
 import ChatBottom from "../../components/chat-window/bottom";
 import { useParams } from "react-router-dom";
 import { useRooms } from "../../context/rooms.context";
 import { Loader } from "rsuite";
+import { CurrentRoomProvider } from "../../context/current-room.context";
 
 function Chat() {
   const { chatId } = useParams();
-
-  console.log(typeof chatId, "gasdh");
+  const [currentRoom, setCurrentRoom] = useState(null);
 
   const rooms = useRooms();
 
-  console.log(typeof rooms?.id);
+  useEffect(() => {
+    if (chatId) {
+      setCurrentRoom(
+        rooms?.filter((ele) => {
+          return ele?.id[0] === chatId;
+        })
+      );
+    }
+  }, [rooms, chatId]);
 
   if (!rooms) {
     return <Loader center vertical size="md" content="Loading" speed="slow" />;
   }
 
-  const currentRoom = rooms.map((room) =>
-    room.includes((item) => item.id === chatId)
-  );
+  const name = currentRoom && currentRoom[0]?.name;
+  const description = currentRoom && currentRoom[0]?.description;
 
-  console.log(currentRoom);
+  const currentRoomData = {
+    name,
+    description,
+  };
+
   return (
-    <div>
+    <CurrentRoomProvider data={currentRoomData}>
       {currentRoom && currentRoom ? (
         <>
           <div className="chat-top">
@@ -39,9 +50,9 @@ function Chat() {
           </div>
         </>
       ) : (
-        <h6>Chat Not Found</h6>
+        <h6 className="text-center mt-page">Select chat to continue</h6>
       )}
-    </div>
+    </CurrentRoomProvider>
   );
 }
 
