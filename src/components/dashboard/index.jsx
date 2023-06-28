@@ -11,14 +11,15 @@ function Dashboard({ handleSignOut }) {
   const { profile } = useProfile();
 
   const handleSave = async (newData) => {
-    // const userNicknameRef = database
-    //   .ref(`/profiles/${profile.uid}`)
-    //   .child("name");
-
     try {
-      const updates = await getUserUpdates(profile.uid, "name", newData, database)
+      const updates = await getUserUpdates(
+        profile.uid,
+        "name",
+        newData,
+        database
+      );
 
-      await database.ref().update(updates)
+      await database.ref().update(updates);
 
       Alert.success("Nickname has been updated");
     } catch (err) {
