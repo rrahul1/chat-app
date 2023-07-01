@@ -15,8 +15,6 @@ function App() {
       <Route path="/signin" element={<SignIn />} />
 
       <Route path="/" element={<Home />}>
-        <Route exact path="/chat/" element={isDesktop && <Chat />} />
-
         <Route exact path="/chat/:chatId" element={isDesktop && <Chat />} />
       </Route>
 

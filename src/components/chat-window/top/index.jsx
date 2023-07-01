@@ -4,9 +4,12 @@ import { ButtonToolbar, Icon } from "rsuite";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "../../../misc/custom-hooks";
 import RoomInfoBtnModal from "./RoomInfoBtnModal";
+import EditRoomDrawer from "./EditRoomDrawer";
 
 const Top = () => {
   const roomName = useCurrentRoom((v) => v?.name);
+
+  const isAdmin = useCurrentRoom((v) => v?.isAdmin);
 
   const isMobile = useMediaQuery("(max-width: 992px)");
 
@@ -28,7 +31,9 @@ const Top = () => {
           <span className="text-disappear">{roomName}</span>
         </h4>
 
-        <ButtonToolbar className="ws-nowrap">Todo</ButtonToolbar>
+        <ButtonToolbar className="ws-nowrap">
+          {isAdmin && <EditRoomDrawer />}
+        </ButtonToolbar>
       </div>
 
       <div className="d-flex justify-content-between align-items-center">

@@ -27,6 +27,7 @@ export const ProfileProvider = ({ children }) => {
       }
       if (authObj) {
         userStatusRef = database.ref(`/status/${authObj?.uid}`);
+        console.log(authObj.uid);
 
         userRef = database.ref(`/profiles/${authObj.uid}`);
         userRef.on("value", (snap) => {

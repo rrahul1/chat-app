@@ -20,7 +20,7 @@ const getText = (presence) => {
 
   return presence?.state === "online"
     ? "online"
-    : `Last seen ${new Date(presence.last_changed.toLocaleDateString())}`;
+    : `Last seen ${new Date(presence.last_changed?.toLocaleDateString)}`;
 };
 
 const PresenceDot = ({ uid }) => {
