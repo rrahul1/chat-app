@@ -7,9 +7,9 @@ import { Button } from "rsuite";
 import { useCurrentRoom } from "../../../context/current-room.context";
 import { auth } from "../../../misc/firebase";
 import { useHover, useMediaQuery } from "../../../misc/custom-hooks";
-import LikeBtn from "./LikeBtn";
+import BtnControl from "./LikeBtn";
 
-function MessageItem({ message, handleAdmin, handleLike }) {
+function MessageItem({ message, handleAdmin, handleLike, handleDelete }) {
   const { author, createdAt, text, likes, likeCount } = message;
 
   const [selfRef, isHover] = useHover();
@@ -61,7 +61,7 @@ function MessageItem({ message, handleAdmin, handleLike }) {
           datetime={createdAt}
           className="font-normal text-black-45 ml-2"
         />
-        <LikeBtn
+        <BtnControl
           {...(isLiked ? { color: "red" } : {})}
           isVisible={canShowIcons}
           iconName="heart"
@@ -69,6 +69,14 @@ function MessageItem({ message, handleAdmin, handleLike }) {
           onClick={() => handleLike(message?.id)}
           badgeContent={likeCount}
         />
+        {isAuthor && (
+          <BtnControl
+            isVisible={canShowIcons}
+            iconName="close"
+            tooltip="Delete this message"
+            onClick={() => handleDelete(message?.id)}
+          />
+        )}
       </div>
 
       <div>
